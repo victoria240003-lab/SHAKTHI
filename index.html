@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:wght@500;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<title>For You 💖</title>
+<style>
+body {margin:0;font-family:'Montserrat',sans-serif;text-align:center;background:linear-gradient(135deg,#ffe0ec,#e6ccff,#d6f0ff);color:white;overflow:hidden;}
+.page{display:none;height:100vh;justify-content:center;align-items:center;flex-direction:column;padding:20px;}
+.active{display:flex;}
+h1{font-family:'Playfair Display',serif;font-size:2.8em;}
+h2{font-family:'Playfair Display',serif;max-width:500px;}
+input{padding:10px;border-radius:10px;border:none;text-align:center;margin-top:10px;}
+button{padding:12px 28px;border-radius:30px;border:none;background:rgba(255,143,171,0.9);color:white;cursor:pointer;margin-top:20px;}
+.heart{position:absolute;font-size:18px;animation:float 8s linear infinite;}
+@keyframes float{from{transform:translateY(100vh);}to{transform:translateY(-10vh);}}
+.card{background:rgba(255,255,255,0.25);padding:25px;border-radius:25px;max-width:420px;backdrop-filter:blur(15px);font-family:'Dancing Script',cursive;font-size:1.2em;line-height:1.8;}
+video{width:90%;max-width:420px;border-radius:20px;}
+</style>
+</head>
+<body>
+
+<div id="lockScreen" class="page active">
+<h2>Heyy Thangamae 💖</h2>
+<p>Enter the secret password 🥺</p>
+<input type="password" id="passwordInput" placeholder="Enter password 💌">
+<button onclick="checkPassword()">Unlock 💞</button>
+<p id="errorText"></p>
+</div>
+
+<script>
+for (let i=0;i<25;i++){let h=document.createElement("div");h.className="heart";h.innerHTML="💖";h.style.left=Math.random()*100+"vw";h.style.animationDuration=(5+Math.random()*5)+"s";document.body.appendChild(h);}
+</script>
+
+<audio id="bgMusic" loop>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page" id="page1">
+<h1>Happyyy Birthdayyy Thangamae 💖</h1>
+<p>Ready to dive into something special? 💌</p>
+<button onclick="nextPage(2)">Start 💞</button>
+</div>
+
+<div class="page" id="page2">
+<div class="card" id="typedText"></div>
+<button onclick="nextPage(3)">Continue 💌</button>
+</div>
+
+<div class="page" id="page3">
+<h2>This is for you 💖</h2>
+<video controls autoplay muted>
+<source src="video.mp4" type="video/mp4">
+</video>
+<button onclick="nextPage(4)">Okay… can we have one more? 🥺💞</button>
+</div>
+
+<div class="page" id="page4">
+<h2>Happyyy Birthday once again Thangamae 🎀💖<br><br>My katti thangam… always and forever 💛<br><br>You mean everything to me 🥺💞</h2>
+</div>
+
+<script>
+function checkPassword(){
+const correctPassword="love123";
+const input=document.getElementById("passwordInput").value;
+if(input===correctPassword){
+document.getElementById("lockScreen").style.display="none";
+nextPage(1);
+}else{
+document.getElementById("errorText").innerText="Wrong password 🥺";
+}
+}
+
+function nextPage(n){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+n).classList.add("active");
+
+let music=document.getElementById("bgMusic");
+
+if(n===2 && i===0){
+typeEffect();
+music.volume=0.3;
+music.play().catch(()=>{});
+}
+
+if(n===3){
+music.volume=0.15;
+}
+}
+
+const message=`You’ll always be the only boy who held my hand when I couldn’t hold myself together. 💖
+
+You came into my life when I was shattered into pieces—not fixing me all at once, but patiently, piece by piece, mending me with gold. ✨
+
+Eppadi vanthaayo, punnagai thanthaayo…
+Eppadi vanthaayo, ennaiyum kodaayo… 💫
+
+As I always tell you, you’ll forever be my katti thangam 💛`;
+
+let i=0;
+
+function typeEffect(){
+const el=document.getElementById("typedText");
+if(i<message.length){
+el.innerHTML+=message.charAt(i);
+i++;
+setTimeout(typeEffect,25);
+}
+}
+</script>
+
+</body>
+</html>
